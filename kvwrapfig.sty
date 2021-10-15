@@ -1,0 +1,65 @@
+\ProvidesPackage{kvwrapfig}
+
+\RequirePackage{xkeyval}
+\RequirePackage{regexpatch}
+\RequirePackage{xparse}
+
+\RequirePackage{wrapfig}
+
+\newdimen\wrapcolumnsep
+\wrapcolumnsep\columnsep
+
+\DeclareOptionX<kvwrap>{pos}{\def\kvwrap@pos{#1}}
+\DeclareOptionX<kvwrap>{sep}{\def\kvwrap@sep{#1}}
+\DeclareOptionX<kvwrap>{overhang}{\def\kvwrap@overhang{#1}}
+
+\define@key{kvwrap}{lines}{\def\kvwrap@lines{#1}}
+
+\ExecuteOptionsX<kvwrap>{pos=o,sep=\columnsep,overhang=0pt}
+\ProcessOptionsX<kvwrap>
+
+\wrapcolumnsep\kvwrap@sep\relax
+
+\xpatchcmd*\WF@putfigmaybe{\columnsep}{\wrapcolumnsep}{}{}
+
+
+
+%%%%
+\ExplSyntaxOn
+
+\cs_new:Npn \kvwrap_exp_args:Nxxxxx { \::x \::x \::x \::x \::x \::: }
+
+\def\temp@wrap#1#2#3#4#5{%
+   \ifnum#2>0\relax
+      \wrapfloat{#1}[#2]{#3}[#4]{#5}%
+   \else
+      \wrapfloat{#1}{#3}[#4]{#5}%
+   \fi
+}
+
+\NewDocumentCommand{\kvwrapenv}{m m o d<>}{%%table/figure width [pos] <sep,overhang,lines>
+   \def\kvwrap@lines{-1}
+   \IfValueT{#3}{\def\kvwrap@pos{#3}}%
+   \IfValueT{#4}{\setkeys{kvwrap}{#4}}%
+   %% #1: table/figure #2: width #3: option [pos] #4: option <sep,overhang,lines>
+   \edef\kvwrap@type{#1}%
+   \edef\kvwrap@width{#2}%
+   \global\wrapcolumnsep\kvwrap@sep\relax
+%% \wrapfloat{\kvwrap@type}[\kvwrap@lines]{\kvwrap@pos}[\kvwrap@overhang]{\kvwrap@width}%
+    \kvwrap_exp_args:Nxxxxx
+    \temp@wrap{\kvwrap@type}{\kvwrap@lines}{\kvwrap@pos}{\kvwrap@overhang}{\kvwrap@width}%
+}
+
+\ExplSyntaxOff
+
+
+\def\kvwrapfigure{\kvwrapenv{figure}}
+\def\kvwraptable{\kvwrapenv{table}}
+
+\let\endkvwrapfigure\endwrapfloat
+\let\endkvwraptable\endwrapfloat
+
+
+%%%%
+\endinput
+
