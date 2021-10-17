@@ -47,9 +47,13 @@ wrapfigパッケージに準じて，wrapfigure環境に対応するkvwrapfigure
 
 ## 動作環境
 
-TeXLive2018でテストしています．regexpatchパッケージとxparseパッケージを使っていることもありTeXLive2018以降を想定しています．
+TeXLive2018でテストしています．regexpatchパッケージとxparseパッケージを使っていることもありTeXLive2017以降であれば動作すると思いますが，TeXLive2018以降を想定しています．
 
 
+## 更新履歴
+
+- 2021/10/18 バージョン等を追加（v.1.0），動作環境の注意を追記．
+- 2021/10/15 initial commit
 
 
 
