@@ -1,8 +1,8 @@
-This is e-pTeX, Version 3.14159265-p3.8.1-180226-2.6 (utf8.sjis) (TeX Live 2018/W32TeX) (preloaded format=platex 2020.8.12)  18 OCT 2021 08:53
+This is e-pTeX, Version 3.14159265-p3.8.1-180226-2.6 (utf8.sjis) (TeX Live 2018/W32TeX) (preloaded format=platex 2020.8.12)  18 OCT 2021 15:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**test
+**test.tex
 (./test.tex
 pLaTeX2e <2018-12-01> (based on LaTeX2e <2018-12-01>)
 (e:/texlive/2018/texmf-dist/tex/platex/base/jarticle.cls
@@ -221,6 +221,8 @@ Package: xparse 2018-10-17 L3 Experimental document command parser
 Package: wrapfig 2003/01/31  v 3.6
 )
 \wrapcolumnsep=\dimen155
+\wrapuppersep=\dimen156
+\wraplowersep=\dimen157
 ) (./test.aux)
 \openout1 = `test.aux'.
 
@@ -245,12 +247,12 @@ LaTeX Font Info:    ... okay on input line 5.
 
 ] (./test.aux) ) 
 Here is how much of TeX's memory you used:
- 9973 strings out of 493226
- 191930 string characters out of 6147196
- 270806 words of memory out of 5000000
- 14000 multiletter control sequences out of 15000+600000
+ 9981 strings out of 493226
+ 192059 string characters out of 6147196
+ 271767 words of memory out of 5000000
+ 14008 multiletter control sequences out of 15000+600000
  536209 words of font info for 41 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 40i,6n,34p,1784b,749s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,6n,34p,1799b,749s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on test.dvi (1 page, 4636 bytes).
+Output written on test.dvi (1 page, 4644 bytes).

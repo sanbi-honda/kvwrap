@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2018/08/12]
-\ProvidesPackage{kvwrapfig}[2021/10/18 v.1.0 sanbi-honda]
+\ProvidesPackage{kvwrapfig}[2021/10/18 v.1.1 sanbi-honda]
 
 \RequirePackage{xkeyval}
 \RequirePackage{regexpatch}
@@ -10,19 +10,31 @@
 \newdimen\wrapcolumnsep
 \wrapcolumnsep\columnsep
 
+\newdimen\wrapuppersep
+\wrapuppersep\intextsep
+\newdimen\wraplowersep
+\wraplowersep\intextsep
+
+
 \DeclareOptionX<kvwrap>{pos}{\def\kvwrap@pos{#1}}
 \DeclareOptionX<kvwrap>{sep}{\def\kvwrap@sep{#1}}
+\DeclareOptionX<kvwrap>{upsep}{\def\kvwrap@up@sep{#1}}
+\DeclareOptionX<kvwrap>{lowsep}{\def\kvwrap@low@sep{#1}}
 \DeclareOptionX<kvwrap>{overhang}{\def\kvwrap@overhang{#1}}
 
 \define@key{kvwrap}{lines}{\def\kvwrap@lines{#1}}
 
-\ExecuteOptionsX<kvwrap>{pos=o,sep=\columnsep,overhang=0pt}
+\ExecuteOptionsX<kvwrap>{pos=o,sep=\columnsep,upsep=\intextsep,lowsep=\intextsep,overhang=0pt}
 \ProcessOptionsX<kvwrap>
 
 \wrapcolumnsep\kvwrap@sep\relax
+\wrapuppersep\kvwrap@up@sep\relax
+\wraplowersep\kvwrap@low@sep\relax
+
 
 \xpatchcmd*\WF@putfigmaybe{\columnsep}{\wrapcolumnsep}{}{}
-
+\xpatchcmd*\endwrapfloat{\global\advance\WF@size\tw@\intextsep}{\global\advance\WF@size\dimexpr\wrapuppersep+\wraplowersep\relax}{}{}
+\xpatchcmd*\WF@putfigmaybe{\intextsep}{\wrapuppersep}{}{}
 
 
 %%%%
@@ -46,6 +58,8 @@
    \edef\kvwrap@type{#1}%
    \edef\kvwrap@width{#2}%
    \global\wrapcolumnsep\kvwrap@sep\relax
+   \global\wrapuppersep\kvwrap@up@sep\relax
+   \global\wraplowersep\kvwrap@low@sep\relax
 %% \wrapfloat{\kvwrap@type}[\kvwrap@lines]{\kvwrap@pos}[\kvwrap@overhang]{\kvwrap@width}%
     \kvwrap_exp_args:Nxxxxx
     \temp@wrap{\kvwrap@type}{\kvwrap@lines}{\kvwrap@pos}{\kvwrap@overhang}{\kvwrap@width}%
